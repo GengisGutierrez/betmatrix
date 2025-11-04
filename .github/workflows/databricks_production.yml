@@ -1,0 +1,47 @@
+name: Databricks Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli
+
+      - name: Configure Databricks CLI
+        run: |
+          databricks configure --token <<EOF
+          ${{ secrets.DATABRICKS_HOST }}
+          ${{ secrets.DATABRICKS_TOKEN }}
+          EOF
+
+      - name: Update Databricks Repo
+        run: |
+          # Obtener el ID del repo
+          REPO_PATH="/Repos/main/${{ github.event.repository.name }}"
+          
+          # Actualizar el repo a la última versión de main
+          databricks repos update --path "$REPO_PATH" --branch main
+          
+          echo "✅ Repo actualizado exitosamente"
+          echo "📍 Ubicación: $REPO_PATH"
+
+      - name: Deployment Summary
+        run: |
+          echo "✅ Código actualizado en Databricks Repos"
+          echo "🔗 Workspace: ${{ secrets.DATABRICKS_HOST }}"
+          echo "📂 Path: /Repos/main/${{ github.event.repository.name }}"
