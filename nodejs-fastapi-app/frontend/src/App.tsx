@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Calculator from './Calculator';
 
 interface Usuario {
   id: number
@@ -37,11 +38,9 @@ interface FormData {
 
 // Datos dummy
 const usuariosDummy: Usuario[] = [
-  { id: 1, nombre: 'Usuario 1' },
-  { id: 2, nombre: 'Usuario 2' },
-  { id: 3, nombre: 'Usuario 3' },
-  { id: 4, nombre: 'Usuario 4' },
-  { id: 5, nombre: 'Usuario 5' },
+  { id: 1, nombre: 'Gengis Gutierrez' },
+  { id: 2, nombre: 'Valery Gutierrez' },
+  { id: 3, nombre: 'Jim Velasquez' },
 ]
 
 const apuestasDummy: Apuesta[] = [
@@ -295,9 +294,10 @@ function App() {
   }
 
   return (
+    <>
     <div className="app">
       <div className="sidebar">
-        <h2>Usuarios</h2>
+        <h2>Colaboradores</h2>
         <div className="usuarios-list">
           {usuarios.map(usuario => (
             <div
@@ -323,12 +323,12 @@ function App() {
                 <div className="stat-card">
                   <h3>Balance Total</h3>
                   <p className={estadisticas.balance_total >= 0 ? 'positive' : 'negative'}>
-                    ${estadisticas.balance_total.toFixed(2)}
+                    S/.{estadisticas.balance_total.toFixed(2)}
                   </p>
                 </div>
                 <div className="stat-card">
                   <h3>Total Apostado</h3>
-                  <p>${estadisticas.total_apostado.toFixed(2)}</p>
+                  <p>S/.{estadisticas.total_apostado.toFixed(2)}</p>
                 </div>
                 <div className="stat-card">
                   <h3>Apuestas</h3>
@@ -428,7 +428,7 @@ function App() {
                       <tr key={apuesta.id}>
                         <td>{formatearFecha(apuesta.created_at)}</td>
                         <td>{apuesta.deporte}</td>
-                        <td>${apuesta.monto_apostado.toFixed(2)}</td>
+                        <td>S/.{apuesta.monto_apostado.toFixed(2)}</td>
                         <td>{apuesta.cuota.toFixed(2)}</td>
                         <td>
                           <span className={`badge ${apuesta.resultado.toLowerCase()}`}>
@@ -436,7 +436,7 @@ function App() {
                           </span>
                         </td>
                         <td className={apuesta.monto_resultado >= 0 ? 'positive' : 'negative'}>
-                          ${apuesta.monto_resultado.toFixed(2)}
+                          S/.{apuesta.monto_resultado.toFixed(2)}
                         </td>
                         <td>{apuesta.descripcion}</td>
                         <td>
@@ -463,6 +463,8 @@ function App() {
         )}
       </div>
     </div>
+    <Calculator />
+    </>
   )
 }
 
