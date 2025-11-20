@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Calculator.css';
+import '../../styles/layout/Calculator.css';
 
 interface Bet {
   odd: string;
@@ -18,7 +18,7 @@ const Calculator: React.FC = () => {
   const [totalStake, setTotalStake] = useState('100');
   const [totalCurrency, setTotalCurrency] = useState('USD');
   const [profit, setProfit] = useState('0.00');
-  const [profitPercent, setProfit percent] = useState('0.00');
+  const [profitPercent, setProfitpercent] = useState('0.00');
 
   const currencies = ['USD', 'EUR', 'BRL', 'PEN'];
 
@@ -96,7 +96,7 @@ const Calculator: React.FC = () => {
     <>
       {/* Botón flotante */}
       <button 
-        className={calculator-toggle ${isOpen ? 'open' : ''}}
+        className={`calculator-toggle ${isOpen ? 'open' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         title="Calculadora de Apuestas Seguras"
       >
@@ -104,12 +104,12 @@ const Calculator: React.FC = () => {
       </button>
 
       {/* Panel de calculadora */}
-      <div className={calculator-panel ${isOpen ? 'open' : ''}}>
+      <div className={`calculator-panel ${isOpen ? 'open' : ''}`}>
         <div className="calculator-header">
           <h2>Calculadora de Apuestas Seguras</h2>
           <div className="profit-display">
             <span className="profit-label">Beneficio:</span>
-            <span className={profit-value ${parseFloat(profit) > 0 ? 'positive' : 'negative'}}>
+            <span className={`profit-value ${parseFloat(profit) > 0 ? 'positive' : 'negative'}`}>
               {profit} {totalCurrency}
             </span>
             <span className="profit-percent">({profitPercent}%)</span>
